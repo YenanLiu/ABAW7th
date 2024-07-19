@@ -1,0 +1,96 @@
+# # wandb setting
+
+wandb_name: "Data_All_DDP_s50w50b4_Dlr[1e-5_1e-5]"
+AU: True
+EXPR: True
+VA_Arousal: True
+VA_Valence: True
+VA: False
+
+AU_weight: 1
+EXPR_weight: 0.5
+VA_Arousal_weight: 1
+VA_Valence_weight: 1
+
+# Combine feature choice
+AU_Fea: "AU/val_features.h5"
+EXPR_Fea: "EXPR/val_features.h5"
+V_Fea: "V/val_features.h5"
+
+# data augs
+aug_ways: ["RandomHorizontal", "RandomResizedCrop", "RandomRotation", "ColorJitter", "RandomAffine"]
+ 
+train_anno_file: "Track1_five_fold/train_fold_5.csv"
+val_anno_file: "Track1_five_fold/val_fold_5.csv"
+train_data_dir: "MTL/cropped_aligned/"
+val_data_dir: "MTL/cropped_aligned/"
+
+seq_len: 1
+win_len: 1
+epoch: 20
+batchsize: 50 # 50 120 frame:192
+train_shuffle: False
+
+# log setting
+log_dir: "/output/ABAW/MTL_E"
+ 
+img_size: 224
+num_workers: 4
+ 
+pretrain_model: "/model-50.pth"
+finetune_model: ""
+resume_model: ""
+
+# training
+seed: 1234
+optimizer: "AdamW"
+# for MAE
+MAE_init_lr: 1e-5
+# for head and temporal convergence model
+head_lr: 1e-5
+temporal_lr: 1e-5
+
+scheduler: "CosineAnnealingLR"
+
+# SGD
+sgd_momentum: 0.9
+sgd_weight_decay: 1e-4
+# AdamW
+adamW_weight_decay: 0.05 #1e-4
+
+# StepLR
+steplr_size: 50
+steplr_gamma: 0.1
+# MultiStepLR
+Msteplr_size: [15, 30, 45, 60]
+Msteplr_gamma: 0.1
+# ExponentialLR
+ExponentialLR_gamma: 0.95
+# CosineAnnealingLR
+CosineAnnealingLR_T_max: 2
+CosineAnnealingLR_eta_min: 1e-5
+
+time_model: "" # ["Transformer", "LSTM", "TCN", "GRU"]
+input_dim: 768
+
+# Transformer hypeparams
+num_heads: [8, 8, 8]
+t_hidden_dims: [512, 256, 256]
+
+# LSTM hypeparams
+hidden_dim: 768
+l_num_layers: 2
+
+# TCN hypeparams
+kernel_size: 2
+dropout: 0.2
+num_channels : [768, 512, 256]
+
+# TCN hypeparams
+kernel_size: 2
+dropout: 0.2
+num_channels : [768, 512, 256]
+
+# for testing
+model_weight: "/project/_liuchen/ABAW7th/pth/AU_Repeat_epoch2_best.pth"
+prediction_save_dir: "/root/code/ABAW/test_results/"

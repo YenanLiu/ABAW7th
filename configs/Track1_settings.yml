@@ -1,0 +1,89 @@
+# wandb setting
+wandb_name: "AU-Frame-DDP_4*72*2_Dlr[1e-5_1e-5]"
+AU: False
+EXPR: True
+VA: False
+VA_Arousal: False
+VA_Valence: False
+
+AU_weight: 1
+EXPR_weight: 0.5
+VA_Arousal_weight: 1
+VA_Valence_weight: 1
+
+
+# data load
+frame: False
+seq_len: 1
+win_len: 1
+epoch: 30
+batchsize: 1 #192
+test_batch: 24
+train_shuffle: False
+
+# log setting
+log_dir: "/output/ABAW/MTL"
+
+# data
+train_file: "train.csv"
+val_file: "val.csv"
+data_dir: "MTL/cropped_aligned"
+img_size: 224
+num_workers: 4
+ 
+pretrain_model: "model-34.pth"
+resume_model: ""
+finetune_model: ""
+# training
+seed: 1234
+optimizer: "AdamW"
+# for MAE
+MAE_init_lr: 1e-5
+# for head and temporal convergence model
+head_lr: 1e-5
+temporal_lr: 1e-5
+
+scheduler: "CosineAnnealingLR"
+
+# SGD
+sgd_momentum: 0.9
+sgd_weight_decay: 1e-4
+# AdamW
+adamW_weight_decay: 0.05 #1e-4
+
+# StepLR
+steplr_size: 50
+steplr_gamma: 0.1
+# MultiStepLR
+Msteplr_size: [15, 30, 45, 60]
+Msteplr_gamma: 0.1
+# ExponentialLR
+ExponentialLR_gamma: 0.95
+# CosineAnnealingLR
+CosineAnnealingLR_T_max: 2
+CosineAnnealingLR_eta_min: 1e-5
+
+time_model: "" # ["Transformer", "LSTM", "TCN", "GRU"]
+input_dim: 768
+
+# Transformer hypeparams
+num_heads: [8, 8, 8]
+t_hidden_dims: [768, 512, 256]
+
+# LSTM hypeparams
+hidden_dim:  [512, 256, 256]
+
+# TCN hypeparams
+kernel_size: 2
+dropout: 0.2
+num_channels : [768, 512, 256]
+
+# TCN hypeparams
+kernel_size: 2
+dropout: 0.2
+num_channels : [768, 512, 256]
+
+
+# for testing
+model_weight: "/project/_liuchen/ABAW7th/pth/EXPR_epoch2_flod1_0.6572.pth"
+prediction_save_dir: "/root/code/ABAW/test_results/"

@@ -1,0 +1,86 @@
+# wandb setting False
+wandb_name: "RAF-DB_Comp_bmc_96_e[-5-5]_[5, 5, 3, 3]_[0, 0.2, 0.4, 1]"
+"Data_RAF-DB-Single": True
+"Data_RAF-DB-Multi": True
+"Data_Aff-wild2": False # all single 
+"Data_Competition": True # all compound
+
+# Tricks
+ema: False
+
+# dataAug
+aug_classical: False
+aug_ways: ["RandomHorizontal", "RandomResizedCrop", "RandomRotation", "ColorJitter", "RandomAffine"]
+mix_up: True
+cutout: False
+cutmix: False
+
+
+# data load
+rab_single_datadir: "RAF_single/aligned"
+rab_single_train_file: "RAF-DB/train_val_single.txt"
+
+rab_compound_datadir: "RAF_compound/images"
+rab_compound_train_file: "RAF-DB/train_val_compound.txt" # _clean
+
+affwild_datadir: "/crop_face_retinaface2/"
+affwild_train_file: "train.txt"
+affwild_val_file: "val.txt"
+
+competition_datadir: "/challenge4/crop_face/"
+competition_train_file: "/Track2_five_fold/train_fold_1.txt"
+competition_val_file: "/Track2_five_fold/val_fold_1.txt"
+ 
+batchsize: 96 # 192 # 96
+
+# training stage
+train_epoch: [5, 5, 3, 3]
+# multi-label propotion 
+m_label: [0, 0.2, 0.4, 1]
+
+# log setting
+log_dir: "/output/ABAW/CER"
+
+input_size: 224
+num_workers: 8
+
+pretrain_model: "model-20.pth"
+resume_model: ""
+
+fintune_MAE: True # False True
+
+# training
+seed: 1234
+optimizer: "AdamW"
+# for MAE
+MAE_init_lr: 1e-5
+# for head and temporal convergence model
+pred_head_lr: 1e-5
+
+scheduler: "CosineAnnealingLR"
+
+# SGD
+sgd_momentum: 0.9
+sgd_weight_decay: 1e-4
+# AdamW
+adamW_weight_decay: 0.05 #1e-4
+
+# StepLR
+steplr_size: 50
+steplr_gamma: 0.1
+# MultiStepLR
+Msteplr_size: [15, 30, 45, 60]
+Msteplr_gamma: 0.1
+# ExponentialLR
+ExponentialLR_gamma: 0.95
+# CosineAnnealingLR
+CosineAnnealingLR_T_max: 2
+CosineAnnealingLR_eta_min: 1e-5
+
+# Loss
+loss_type: "bmc" #["bce", "bmc"]
+noise_sigma: 1.0
+
+# for testing
+model_weight: "/project/_liuchen/ABAW7th/pth/DDP_VA_epoch0_best.pth"
+prediction_save_dir: "/root/code/ABAW/test_results/"

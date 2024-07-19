@@ -1,0 +1,80 @@
+# # wandb setting
+TestMode: "val" # test val
+# log setting
+log_dir: "/root/code/ABAW/val_results_prob/EXPR_fold"
+
+AU: False
+EXPR: True
+VA_Arousal: False
+VA_Valence: False
+VA: False
+
+# Combine feature choice
+AU_Fea: "/project/ABAW6/MTL/cropped_aligned_fea/AU_myself/val_features.h5" 
+EXPR_Fea: ""
+V_Fea: "/project/ABAW6/MTL/cropped_aligned_fea/V_myself/val_features.h5"
+
+model_weight: "/project/_liuchen/pth/EXPR/fold4/EXPR_0.4784_fold4_epoch6_latest.pth"
+
+# /project/ABAW6/MTL/cropped_aligned_fea/AU_myself/val_features.h5
+# /project/ABAW6/MTL/cropped_aligned_fea/V_myself/val_features.h5
+# /project/ABAW6/MTL/cropped_aligned_fea/V_myself/test_features.h5
+# /project/ABAW6/MTL/cropped_aligned_fea/AU_myself/val_features_ori.h5 
+# /project/ABAW6/MTL/cropped_aligned_fea/AU_myself/test_features_ori.h5 
+# data augs
+aug_ways: ["RandomHorizontal", "RandomResizedCrop", "RandomRotation", "ColorJitter", "RandomAffine"]
+
+# /project/ABAW6/MTL/cropped_aligned_fea/AU_myself/val_features.h5
+# /project/ABAW6/MTL/cropped_aligned_fea/EXPR_myself/val_features.h5
+# /project/ABAW6/MTL/cropped_aligned_fea/EXPR_zw/val_features.h5
+# /project/ABAW6/MTL/cropped_aligned_fea/V_myself/val_features.h5
+# /project/ABAW6/MTL/cropped_aligned_fea/V_zw/val_features.h5
+# /project/ABAW6/MTL/cropped_aligned_fea/BP4D+/val_features.h5
+# /project/ABAW6/MTL/cropped_aligned_fea/BP4D/val_features.h5
+
+# data
+
+val_data_dir: "/root/code/ABAW/7thDataInfo/data_files/MTL/cropped_aligned/"
+val_anno_file: "/root/code/ABAW/dataload/val.csv"
+test_data_dir: "/root/code/ABAW/7thDataInfo/MTL_Test"
+test_anno_file: "/root/code/ABAW/dataload/MTL.csv"
+
+pretrain_model: ""
+finetune_model: ""
+
+seq_len: 5
+win_len: 5
+epoch: 30
+batchsize: 10 # 50 120 frame:192
+train_shuffle: False
+
+img_size: 224
+num_workers: 2
+
+# training
+seed: 1234
+
+time_model: "" # ["Transformer", "LSTM", "TCN", "GRU"]
+input_dim: 768
+
+# Transformer hypeparams
+d_model: 768
+num_heads: 4
+num_layers: 2
+dropout: 0.3
+
+# LSTM hypeparams
+hidden_dim: 768
+l_num_layers: 2
+
+# TCN hypeparams
+kernel_size: 2
+dropout: 0.2
+num_channels : [768, 512, 256]
+
+# TCN hypeparams
+kernel_size: 2
+dropout: 0.2
+num_channels : [768, 512, 256]
+
+
